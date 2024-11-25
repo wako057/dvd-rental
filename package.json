@@ -1,0 +1,7 @@
+{
+  "name": "dvd-rental",
+  "version": "1.0.0",
+  "description": "project for express / typescript / hexagonal architecture",
+  "main": "index.js",
+  "license": "MIT"
+}
