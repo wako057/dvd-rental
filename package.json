@@ -3,5 +3,13 @@
   "version": "1.0.0",
   "description": "project for express / typescript / hexagonal architecture",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.3",
+    "typescript": "^5.7.2"
+  }
 }
