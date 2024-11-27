@@ -15,7 +15,6 @@ export class FilmRepositoryInmemory implements FilmRepository {
   }
 
   async getFilms(paginator?: Paginator): Promise<Film[]> {
-    console.log('blu', Array.from(this.films.values()));
     return Array.from(this.films.values());
   }
 
