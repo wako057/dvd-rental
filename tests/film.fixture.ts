@@ -5,18 +5,14 @@ export const createFilmFixture = () => {
   const filmRepository = new FilmRepositoryInmemory();
 
   return {
-    getMockedData(filmsJSON: any[]): Film[] {
-      return filmsJSON.map(film => ({
-        ...film,
-        last_update: new Date(film.last_update)
-      }))
-    },
     givenExistingFilms(filmsJSON: any[]) {
-      const films = this.getMockedData(filmsJSON);
-      films.map(film => filmRepository.addFilm(film));
+      filmsJSON.map(film => filmRepository.addFilm(Film.fromData(film)));
     },
-    thenCallingFirstPageShouldProvideResults() {
-      // @tood implement
+    async thenCallingFirstPageShouldProvideResults(expectedResult: Film[]) { // il faut faire appel a l'api
+
+      const filmsFromRepo = await filmRepository.getFilms();
+      expect(filmsFromRepo).toEqual(expectedResult);
+
     }
   };
 };
