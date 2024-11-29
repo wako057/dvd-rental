@@ -1,12 +1,11 @@
-import { FilmRepository} from "../application/film.repository";
-import {Film} from "../domain/film";
-import {Paginator} from "../domain/paginator";
+import { FilmRepository } from "../application/film.repository";
+import { Film } from "../domain/film";
+import { Paginator } from "../domain/paginator";
 
 // export type Paginator = {
 //   seek: number,
 //   nbItems: number
 // }
-
 
 export class FilmRepositoryInmemory implements FilmRepository {
   private films = new Map<string, Film>();
@@ -20,9 +19,6 @@ export class FilmRepositoryInmemory implements FilmRepository {
   }
 
   async addFilm(film: Film) {
-      this.films.set(
-        this.getHashFormFilm(film),
-        film
-      )
+    this.films.set(this.getHashFormFilm(film), film);
   }
 }

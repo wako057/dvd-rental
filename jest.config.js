@@ -3,6 +3,6 @@ module.exports = {
   testEnvironment: "node",
   roots: ["tests"],
   transform: {
-    "^.+.tsx?$": ["ts-jest",{}],
+    "^.+.tsx?$": ["ts-jest", {}],
   },
 };

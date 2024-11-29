@@ -12,9 +12,8 @@ export class Film {
     private readonly _rating: string,
     private readonly _last_update: Date,
     private readonly _special_features: string[],
-    private readonly _fulltext: string
-  ) {
-  }
+    private readonly _fulltext: string,
+  ) {}
 
   get data() {
     return {
@@ -30,11 +29,11 @@ export class Film {
       rating: this.rating,
       last_update: this.last_update,
       special_features: this.special_features,
-      fulltext: this.fulltext
+      fulltext: this.fulltext,
     };
   }
 
-  static fromData(data: Film['data']) {
+  static fromData(data: Film["data"]) {
     return new Film(
       data.film_id,
       data.title,
@@ -48,7 +47,7 @@ export class Film {
       data.rating,
       new Date(data.last_update),
       data.special_features,
-      data.fulltext
+      data.fulltext,
     );
   }
 

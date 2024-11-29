@@ -3,9 +3,8 @@ export class Paginator {
     private readonly _unit: string,
     private readonly _first: number,
     private readonly _last: number,
-    private readonly _length: number
-  ) {
-  }
+    private readonly _length: number,
+  ) {}
 
   get unit() {
     return this._unit;
@@ -16,29 +15,23 @@ export class Paginator {
   }
 
   get last() {
-    return this._last
+    return this._last;
   }
 
   get length() {
     return this._length;
   }
 
-
   get data() {
     return {
       unit: this.unit,
       first: this.first,
       last: this.last,
-      length: this.length
+      length: this.length,
     };
   }
 
-  static fromData(data: Paginator['data']) {
-    return new Paginator(
-      data.unit,
-      data.first,
-      data.last,
-      data.length
-    );
+  static fromData(data: Paginator["data"]) {
+    return new Paginator(data.unit, data.first, data.last, data.length);
   }
 }

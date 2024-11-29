@@ -1,11 +1,10 @@
-import {Request, Response} from "express";
-import {Logger} from "winston";
+import { Request, Response } from "express";
+import { Logger } from "winston";
 
 export type Paginate = {
-  limit: number,
-  offset: number
+  limit: number;
+  offset: number;
 };
-
 
 declare global {
   namespace Express {
@@ -19,11 +18,17 @@ declare global {
 function validateContentRange(contentRange: string): boolean {
   // Vérifie que l'en-tête suit le format "items start-end/total"
   const regex = /^items \d+-\d+/;
-  console.log('header: >', contentRange, '<', 'res test: ', regex.test(contentRange));
+  console.log(
+    "header: >",
+    contentRange,
+    "<",
+    "res test: ",
+    regex.test(contentRange),
+  );
   return regex.test(contentRange);
 }
 
-function getRange (headerContentRange: string): Promise<Paginate> {
+function getRange(headerContentRange: string): Promise<Paginate> {
   return new Promise((resolve, reject) => {
     let limit;
     let offset = 0;
@@ -37,7 +42,7 @@ function getRange (headerContentRange: string): Promise<Paginate> {
     } else {
       reject({
         code: 400,
-        message: "Range header not valid"
+        message: "Range header not valid",
       });
     }
 
@@ -48,12 +53,12 @@ function getRange (headerContentRange: string): Promise<Paginate> {
     } else if (limit > limitMax) {
       reject({
         code: 413,
-        message: "Request entity too large"
+        message: "Request entity too large",
       });
     } else if (limit <= 0) {
       reject({
         code: 400,
-        message: "X-Range is malformed"
+        message: "X-Range is malformed",
       });
     }
 
@@ -64,19 +69,18 @@ function getRange (headerContentRange: string): Promise<Paginate> {
 }
 
 const paginationMiddleware = async (req: Request, res: Response, next: any) => {
-  const headerContentRange = req.headers['content-range'];
+  const headerContentRange = req.headers["content-range"];
   if (headerContentRange) {
     const validContentRangeHeader = validateContentRange(headerContentRange);
     try {
       const paginationInfo = await getRange(headerContentRange);
       req.logger.debug(`parsed: ${JSON.stringify(paginationInfo)}`);
       req.pagination = paginationInfo;
-
-    } catch( err: any) {
+    } catch (err: any) {
       req.logger.error(err);
     }
   }
   next();
-}
+};
 
 export { paginationMiddleware };

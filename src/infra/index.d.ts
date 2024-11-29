@@ -1,5 +1,5 @@
-import * as express from "express"
-import {Logger} from "winston";
+import * as express from "express";
+import { Logger } from "winston";
 
 declare global {
   namespace Express {

@@ -1,10 +1,9 @@
-import {FilmsPresenter} from "./films.presenter";
-import {Film} from "../domain/film";
-
+import { FilmsPresenter } from "./films.presenter";
+import { Film } from "../domain/film";
 
 export class FilmsPresenterDefault implements FilmsPresenter {
-  show(films: Film[]): {id: number, title: string, description: string}[] {
-    return films.map(film => ({
+  show(films: Film[]): { id: number; title: string; description: string }[] {
+    return films.map((film) => ({
       id: film.film_id,
       title: film.title,
       description: film.description,
@@ -19,5 +18,4 @@ export class FilmsPresenterDefault implements FilmsPresenter {
       special_features: film.special_features,
     }));
   }
-
 }

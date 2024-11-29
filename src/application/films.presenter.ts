@@ -1,4 +1,4 @@
-import {Film} from "../domain/film";
+import { Film } from "../domain/film";
 
 export interface FilmsPresenter {
   show(films: Film[]): void;

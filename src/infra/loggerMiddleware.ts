@@ -1,12 +1,13 @@
-import {Request, Response} from "express";
-import {logger} from "./logger";
-import {Logger} from "winston";
+import { Request, Response } from "express";
+import { logger } from "./logger";
+import { Logger } from "winston";
 
 declare global {
   namespace Express {
     interface Request {
       logger: Logger; // or a specific logger type
-      pagination?: { limit: number, offset: number};    }
+      pagination?: { limit: number; offset: number };
+    }
   }
 }
 
@@ -14,6 +15,6 @@ const loggerMiddleware = (req: Request, res: Response, next: any) => {
   req.logger = logger;
   logger.info(`${req.method} ${req.path}`);
   next();
-}
+};
 
 export { loggerMiddleware };
