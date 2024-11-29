@@ -16,6 +16,8 @@ export class FilmController {
     FILM_LISTING.map(film => this.filmRepository.addFilm(Film.fromData(film)));
     const films = await this.filmRepository.getFilms();
 
+    req.logger.warn(`Header content range: ${JSON.stringify(req.headers)}`)
+
     req.logger.info(JSON.stringify(films));
     const presentation = this.filmsPresenter.show(films);
     await res.json(presentation);

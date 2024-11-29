@@ -6,7 +6,7 @@ declare global {
   namespace Express {
     interface Request {
       logger: Logger; // or a specific logger type
-    }
+      pagination?: { limit: number, offset: number};    }
   }
 }
 

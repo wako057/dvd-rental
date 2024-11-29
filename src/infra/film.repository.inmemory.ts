@@ -1,10 +1,11 @@
 import { FilmRepository} from "../application/film.repository";
 import {Film} from "../domain/film";
+import {Paginator} from "../domain/paginator";
 
-export type Paginator = {
-  seek: number,
-  nbItems: number
-}
+// export type Paginator = {
+//   seek: number,
+//   nbItems: number
+// }
 
 
 export class FilmRepositoryInmemory implements FilmRepository {

@@ -8,7 +8,7 @@ export const createFilmFixture = () => {
     givenExistingFilms(filmsJSON: any[]) {
       filmsJSON.map(film => filmRepository.addFilm(Film.fromData(film)));
     },
-    async thenCallingFirstPageShouldProvideResults(expectedResult: Film[]) { // il faut faire appel a l'api
+    async thenCallingPageShouldProvideResults(expectedResult: Film[]) { // il faut faire appel a l'api
 
       const filmsFromRepo = await filmRepository.getFilms();
       expect(filmsFromRepo).toEqual(expectedResult);

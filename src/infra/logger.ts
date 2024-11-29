@@ -2,6 +2,7 @@
 import { createLogger, transports, format } from "winston";
 
 const logger = createLogger({
+  level: 'debug',
   transports: [new transports.Console()],
   format: format.combine(
     format.colorize(),
