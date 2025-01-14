@@ -11,15 +11,16 @@ export class FilmController {
   ) {}
 
   async getFilms(req: Request, res: Response): Promise<void> {
-    FILM_LISTING.map((film) =>
-      this.filmRepository.addFilm(Film.fromData(film)),
-    );
-    const films = await this.filmRepository.getFilms();
-
+    // FILM_LISTING.map((film) =>
+    //   this.filmRepository.addFilm(Film.fromData(film)),
+    // );
+    console.log('paginator: ', req.pagination);
+    const films = await this.filmRepository.getFilms(req.pagination);
+    req.logger.error(JSON.stringify(req.pagination));
     req.logger.warn(`Header content range: ${JSON.stringify(req.headers)}`);
 
     req.logger.info(JSON.stringify(films));
     const presentation = this.filmsPresenter.show(films);
-    await res.json(presentation);
+    await res.setHeader('Content-Range',  `items ${req.pagination.offset}-${req.pagination.offset+films.length-1}`).json(presentation);
   }
 }

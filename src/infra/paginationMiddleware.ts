@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
 import { Logger } from "winston";
+import {Paginator} from "../domain/paginator";
 
-export type Paginate = {
-  limit: number;
-  offset: number;
-};
+// export type Paginate = {
+//   limit: number;
+//   offset: number;
+// };
 
 declare global {
   namespace Express {
     interface Request {
       logger: Logger; // or a specific logger type
-      pagination?: Paginate;
+      pagination: Paginator;
     }
   }
 }
@@ -28,7 +29,7 @@ function validateContentRange(contentRange: string): boolean {
   return regex.test(contentRange);
 }
 
-function getRange(headerContentRange: string): Promise<Paginate> {
+function getRange(headerContentRange: string): Promise<Paginator> {
   return new Promise((resolve, reject) => {
     let limit;
     let offset = 0;
@@ -64,14 +65,16 @@ function getRange(headerContentRange: string): Promise<Paginate> {
 
     offset = offset < 0 ? 0 : offset;
 
-    resolve({ limit: limit, offset: offset });
+    resolve(Paginator.fromData({ unit: 'item', limit: limit, offset: offset }));
   });
 }
 
 const paginationMiddleware = async (req: Request, res: Response, next: any) => {
   const headerContentRange = req.headers["content-range"];
+
   if (headerContentRange) {
     const validContentRangeHeader = validateContentRange(headerContentRange);
+    req.logger.info(`blublu: ${validContentRangeHeader}`);
     try {
       const paginationInfo = await getRange(headerContentRange);
       req.logger.debug(`parsed: ${JSON.stringify(paginationInfo)}`);
@@ -79,6 +82,10 @@ const paginationMiddleware = async (req: Request, res: Response, next: any) => {
     } catch (err: any) {
       req.logger.error(err);
     }
+  } else {
+    req.logger.debug(`default pagination`);
+    req.pagination = await getRange("items 0-9");
+
   }
   next();
 };

@@ -11,7 +11,7 @@ export class Film {
     private readonly _replacement_cost: number,
     private readonly _rating: string,
     private readonly _last_update: Date,
-    private readonly _special_features: string[],
+    private readonly _special_features: string,
     private readonly _fulltext: string,
   ) {}
 
